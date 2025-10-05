@@ -1,0 +1,67 @@
+
+* Julia Scientific Coding Roadmap (8 Weeks)
+This roadmap is designed for researchers with prior experience in Python/R. 
+Time estimates assume ~6–8 hours per week of study and practice.
+
+** Week 1: Julia Basics & Data Handling (~6 hrs)
+- Learn syntax, multiple dispatch, and the type system.
+- Exercises:
+  - [[https://archive.ics.uci.edu/ml/datasets/iris][Iris dataset]]: Load with DataFrames.jl, compute mean and variance per species.
+  - Translate a simple R/Python script that computes summary stats into Julia.
+  - Plot species sepal length distributions with Plots.jl.
+
+** Week 2: Arrays, Linear Algebra, and Performance (~7 hrs)
+- Focus on arrays, broadcasting, and performance tools.
+- Exercises:
+  - Implement naive matrix multiplication for a 10x10 matrix; compare with `A*B`.
+  - Simulate a 1D random walk of 1000 steps; visualize the path.
+  - Apply a nonlinear transformation (e.g. sigmoid) elementwise using broadcasting.
+  - Benchmark loops vs broadcasting with BenchmarkTools.jl.
+
+** Week 3: Differential Equations I (ODE Basics) (~8 hrs)
+- Introduction to DifferentialEquations.jl
+- Exercises:
+  - Logistic growth model: `du/dt = r*u*(1 - u/K)` with r=0.5, K=100, u0=10.
+  - Predator-prey Lotka–Volterra equations; simulate for 50 time units.
+  - Compare solver methods (Tsit5 vs Rosenbrock23).
+
+** Week 4: Differential Equations II (Parameter Estimation) (~7 hrs)
+- Fit models to noisy data.
+- Exercises:
+  - Simulate logistic growth with noise added; fit parameters r and K using Optimization.jl.
+  - Fit Lotka–Volterra parameters from synthetic noisy data.
+  - Explore Bayesian estimation with Turing.jl for logistic growth.
+
+** Week 5: Sensitivity & Uncertainty Quantification (~7 hrs)
+- Explore model robustness.
+- Exercises:
+  - Sensitivity analysis of Lotka–Volterra using SciMLSensitivity.jl.
+  - Rank-order parameter influence on oscillation amplitude.
+  - Simulate uncertainty: assume Gaussian priors for parameters and run ensemble.
+
+** Week 6: Stochastic & PDE Models (~8 hrs)
+- Go beyond deterministic ODEs.
+- Exercises:
+  - Birth-death process with JumpProcesses.jl; simulate population over time.
+  - Compare deterministic logistic growth vs stochastic SDE version.
+  - Heat equation (1D diffusion PDE): solve ∂u/∂t = D∇²u with D=0.1.
+
+** Week 7: Scientific Machine Learning (~8 hrs)
+- Blend neural nets with differential equations.
+- Exercises:
+  - Train NN to approximate solution of du/dt = -u with DiffEqFlux.jl.
+  - Universal differential equation: replace part of Lotka–Volterra with NN.
+  - Compare ML-only vs hybrid model on synthetic data.
+
+** Week 8: Research Workflow & Reproducibility (~6 hrs)
+- Wrap up with best practices.
+- Exercises:
+  - Build a complete research script: load CSV, solve model, fit params, plot results.
+  - Save results to CSV and figures as PNG/PDF.
+  - Package code into a Julia package using PkgTemplates.jl.
+  - Organize project with DrWatson.jl for reproducibility.
+
+** Resources
+- Julia documentation: https://docs.julialang.org/
+- SciML documentation: https://docs.sciml.ai/
+- Julia Discourse: https://discourse.julialang.org/
