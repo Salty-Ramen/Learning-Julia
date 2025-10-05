@@ -1,5 +1,5 @@
 
-* Julia Scientific Coding Roadmap (8 Weeks)
+* Julia Scientific Coding Roadmap (8 Weeks, with Resources)
 This roadmap is designed for researchers with prior experience in Python/R. 
 Time estimates assume ~6–8 hours per week of study and practice.
 
@@ -9,6 +9,15 @@ Time estimates assume ~6–8 hours per week of study and practice.
   - [[https://archive.ics.uci.edu/ml/datasets/iris][Iris dataset]]: Load with DataFrames.jl, compute mean and variance per species.
   - Translate a simple R/Python script that computes summary stats into Julia.
   - Plot species sepal length distributions with Plots.jl.
+- Resources:
+  - Official Julia Docs: https://docs.julialang.org/en/v1/manual/getting-started/
+  - JuliaAcademy Course: https://juliaacademy.com/p/intro-to-julia
+  - Learn Julia in Y Minutes: https://learnxinyminutes.com/docs/julia/
+  - DataFrames.jl Docs: https://dataframes.juliadata.org/stable/
+  - CSV.jl Docs: https://csv.juliadata.org/stable/
+  - Julia Data Science Book (DataFrames chapter): https://juliadatascience.io/dataframes
+  - Plots.jl Docs: https://docs.juliaplots.org/
+  - Julia Data Science Book (Visualization): https://juliadatascience.io/plots
 
 ** Week 2: Arrays, Linear Algebra, and Performance (~7 hrs)
 - Focus on arrays, broadcasting, and performance tools.
@@ -17,6 +26,12 @@ Time estimates assume ~6–8 hours per week of study and practice.
   - Simulate a 1D random walk of 1000 steps; visualize the path.
   - Apply a nonlinear transformation (e.g. sigmoid) elementwise using broadcasting.
   - Benchmark loops vs broadcasting with BenchmarkTools.jl.
+- Resources:
+  - Julia Manual (Arrays & Linear Algebra): https://docs.julialang.org/en/v1/manual/arrays/
+  - Julia Performance Tips: https://docs.julialang.org/en/v1/manual/performance-tips/
+  - JuliaAcademy “Intro to Julia” (Arrays & Performance section)
+  - LinearAlgebra.jl Docs: https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/
+  - BenchmarkTools.jl Docs: https://github.com/JuliaCI/BenchmarkTools.jl
 
 ** Week 3: Differential Equations I (ODE Basics) (~8 hrs)
 - Introduction to DifferentialEquations.jl
@@ -24,6 +39,11 @@ Time estimates assume ~6–8 hours per week of study and practice.
   - Logistic growth model: `du/dt = r*u*(1 - u/K)` with r=0.5, K=100, u0=10.
   - Predator-prey Lotka–Volterra equations; simulate for 50 time units.
   - Compare solver methods (Tsit5 vs Rosenbrock23).
+- Resources:
+  - SciML Docs (DifferentialEquations.jl basics): https://docs.sciml.ai/DiffEqDocs/stable/
+  - JuliaAcademy “Modeling & Simulation in Julia”: https://juliaacademy.com/p/modeling-and-simulation-in-julia
+  - SciML Tutorials: https://docs.sciml.ai/DiffEqTutorials/stable/
+  - Julia Data Science Book (Differential Equations): https://juliadatascience.io/diffeq
 
 ** Week 4: Differential Equations II (Parameter Estimation) (~7 hrs)
 - Fit models to noisy data.
@@ -31,6 +51,11 @@ Time estimates assume ~6–8 hours per week of study and practice.
   - Simulate logistic growth with noise added; fit parameters r and K using Optimization.jl.
   - Fit Lotka–Volterra parameters from synthetic noisy data.
   - Explore Bayesian estimation with Turing.jl for logistic growth.
+- Resources:
+  - Optimization.jl Docs: https://docs.sciml.ai/Optimization/stable/
+  - DiffEqFlux.jl Docs: https://docs.sciml.ai/DiffEqFlux/stable/
+  - Turing.jl Docs: https://turinglang.org/
+  - SciML Parameter Estimation Guide: https://docs.sciml.ai/Overview/stable/showcase/parameter_estimation/
 
 ** Week 5: Sensitivity & Uncertainty Quantification (~7 hrs)
 - Explore model robustness.
@@ -38,6 +63,11 @@ Time estimates assume ~6–8 hours per week of study and practice.
   - Sensitivity analysis of Lotka–Volterra using SciMLSensitivity.jl.
   - Rank-order parameter influence on oscillation amplitude.
   - Simulate uncertainty: assume Gaussian priors for parameters and run ensemble.
+- Resources:
+  - SciMLSensitivity.jl Docs: https://docs.sciml.ai/SciMLSensitivity/stable/
+  - DiffEqUncertainty.jl Docs: https://docs.sciml.ai/DiffEqUncertainty/stable/
+  - JuliaAcademy: https://juliaacademy.com/ (see Modeling & Simulation modules)
+  - JuliaCon talks on parameter sensitivity and uncertainty: https://www.youtube.com/user/JuliaLanguage
 
 ** Week 6: Stochastic & PDE Models (~8 hrs)
 - Go beyond deterministic ODEs.
@@ -45,6 +75,11 @@ Time estimates assume ~6–8 hours per week of study and practice.
   - Birth-death process with JumpProcesses.jl; simulate population over time.
   - Compare deterministic logistic growth vs stochastic SDE version.
   - Heat equation (1D diffusion PDE): solve ∂u/∂t = D∇²u with D=0.1.
+- Resources:
+  - JumpProcesses.jl Docs: https://docs.sciml.ai/JumpProcesses/stable/
+  - DiffEqOperators.jl Docs: https://docs.sciml.ai/DiffEqOperators/stable/
+  - PDE Modeling Examples: https://docs.sciml.ai/DiffEqTutorials/stable/pde/
+  - JuliaCon PDE talks playlist: https://www.youtube.com/user/JuliaLanguage
 
 ** Week 7: Scientific Machine Learning (~8 hrs)
 - Blend neural nets with differential equations.
@@ -52,6 +87,11 @@ Time estimates assume ~6–8 hours per week of study and practice.
   - Train NN to approximate solution of du/dt = -u with DiffEqFlux.jl.
   - Universal differential equation: replace part of Lotka–Volterra with NN.
   - Compare ML-only vs hybrid model on synthetic data.
+- Resources:
+  - DiffEqFlux.jl Docs: https://docs.sciml.ai/DiffEqFlux/stable/
+  - SciML Overview (UDEs): https://docs.sciml.ai/Overview/stable/showcase/universal_differential_equations/
+  - JuliaAcademy “Scientific Machine Learning” course: https://juliaacademy.com/p/scientific-machine-learning
+  - Chris Rackauckas’s YouTube Lectures: https://www.youtube.com/@ChrisRackauckas
 
 ** Week 8: Research Workflow & Reproducibility (~6 hrs)
 - Wrap up with best practices.
@@ -60,8 +100,15 @@ Time estimates assume ~6–8 hours per week of study and practice.
   - Save results to CSV and figures as PNG/PDF.
   - Package code into a Julia package using PkgTemplates.jl.
   - Organize project with DrWatson.jl for reproducibility.
+- Resources:
+  - DrWatson.jl Docs: https://juliadynamics.github.io/DrWatson.jl/stable/
+  - PkgTemplates.jl Docs: https://github.com/invenia/PkgTemplates.jl
+  - Julia Package Development Guide: https://pkgdocs.julialang.org/
+  - Julia Data Science Book (Reproducibility chapter): https://juliadatascience.io/projects
 
-** Resources
-- Julia documentation: https://docs.julialang.org/
-- SciML documentation: https://docs.sciml.ai/
-- Julia Discourse: https://discourse.julialang.org/
+** General Resources
+- Julia Documentation: https://docs.julialang.org/
+- SciML Documentation: https://docs.sciml.ai/
+- Julia Discourse Community: https://discourse.julialang.org/
+- JuliaAcademy (All Courses): https://juliaacademy.com/
+- JuliaCon YouTube Channel: https://www.youtube.com/user/JuliaLanguage
