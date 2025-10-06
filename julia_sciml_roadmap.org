@@ -112,3 +112,139 @@ Time estimates assume ~6–8 hours per week of study and practice.
 - Julia Discourse Community: https://discourse.julialang.org/
 - JuliaAcademy (All Courses): https://juliaacademy.com/
 - JuliaCon YouTube Channel: https://www.youtube.com/user/JuliaLanguage
+
+** How to Use the Resources (Actionable Guidance)
+
+Below are step-by-step instructions for HOW to use each linked resource, week by week.
+Each set is scoped to ~6–8 hrs/week. Treat these like checklists.
+
+*** Week 1 (Basics & Data Handling)
+- Official Julia Docs
+  - Read: Manual → Getting Started, Variables & Scoping, Functions, Control Flow (skim Types).
+  - Do: Recreate each code snippet in the REPL; add one variation of your own.
+  - Checkpoint: You can write and call a function with keyword args and use a for-loop.
+- JuliaAcademy: Introduction to Julia
+  - Watch/Do: Chapters 1–3. Run every cell in your own REPL/VSCode terminal.
+  - Checkpoint: You can use the package manager `Pkg.add`, and know how to activate a project.
+- Learn Julia in Y Minutes
+  - Use as a quick-reference while translating a small Python/R script (~30–60 lines) to Julia.
+  - Checkpoint: You can map Python idioms (list comp, slicing) to Julia equivalents (comprehensions, views).
+- DataFrames.jl Docs
+  - Read: Getting Started, Indexing, combine/groupby/transform sections.
+  - Do: Load Iris; compute grouped means/SDs; write a summary CSV; filter rows by condition.
+  - Checkpoint: You can express a grouped transform in one pipeline.
+- CSV.jl Docs
+  - Read: Reading & Writing sections; note keyword options for missing values and types.
+  - Do: Roundtrip a CSV (load → mutate → write); verify types and missing handling.
+  - Checkpoint: You can control column types on read (`CSV.File(...; types=...)`).
+- Julia Data Science (DataFrames chapter)
+  - Read: Full chapter; replicate one example verbatim, then adapt to a different dataset.
+  - Checkpoint: You can do a join/merge between two small tables.
+- Plots.jl Docs & Julia Data Science (Visualization)
+  - Read: Basic usage and saving figures.
+  - Do: Produce one histogram, one scatter, one bar chart; save as PNG and PDF.
+  - Checkpoint: You can layer multiple series and customize labels/titles.
+
+*** Week 2 (Arrays, LA, Performance)
+- Julia Manual (Arrays & LA) + LinearAlgebra stdlib
+  - Read: Arrays (creation, views, broadcasting), Linear Algebra (factorizations, norms).
+  - Do: Create a large matrix; benchmark view vs copy; use `@views` and broadcasting.
+  - Checkpoint: You can explain when broadcasting allocates and how to avoid it.
+- Performance Tips (Manual)
+  - Read: The entire page once; keep it open as a reference.
+  - Do: Write a hot loop; avoid globals; add type annotations only where needed; measure.
+  - Checkpoint: You can eliminate type instability in a short function (use `@code_warntype`).
+- BenchmarkTools.jl
+  - Read: README quickstart.
+  - Do: Compare a naive matmul vs `*`; compare loop vs broadcasting for a nonlinear transform.
+  - Checkpoint: You can design a fair benchmark (`setup`, `evals`, `samples`).
+
+*** Week 3 (Differential Equations I)
+- SciML Docs (DiffEq basics) + Tutorials
+  - Read: ODEProblem, solve, common algorithms (Tsit5/Rosenbrock23), callbacks overview.
+  - Do: Implement logistic and Lotka–Volterra; change `saveat`; plot phase portrait.
+  - Checkpoint: You can switch solvers and justify the choice (stiff vs nonstiff).
+- JuliaAcademy: Modeling & Simulation
+  - Watch/Do: ODE intro lessons; replicate notebook code in a fresh Julia project.
+  - Checkpoint: You can configure tolerances (`abstol`, `reltol`) and interpret step sizes.
+- Julia Data Science (Differential Equations)
+  - Read: The chapter examples.
+  - Do: Recreate one figure from the chapter with your own parameters.
+  - Checkpoint: You can compute and plot dense interpolated solutions (`sol(t)`).
+
+*** Week 4 (Parameter Estimation)
+- Optimization.jl
+  - Read: Quickstart; NLopt/LBFGS/AD sections; objective definitions.
+  - Do: Fit r,K for noisy logistic data; try with/without AD; compare optimizers.
+  - Checkpoint: You can pass closures capturing the ODE solve and return an MSE.
+- DiffEqFlux.jl
+  - Read: Parameter estimation examples.
+  - Do: Fit Lotka–Volterra using neural or standard parameters; compare to Optimization.jl.
+  - Checkpoint: You can backprop through an ODE solve.
+- Turing.jl
+  - Read: Getting Started; likelihood with ODE solutions.
+  - Do: Build a minimal Bayesian logistic growth model; run NUTS; assess convergence (ESS, R̂).
+  - Checkpoint: You can encode priors and interpret posterior summaries.
+- SciML Parameter Estimation Guide
+  - Read: End-to-end example.
+  - Do: Reproduce the example with a different noise level and time grid.
+  - Checkpoint: You can explain identifiability issues in your model.
+
+*** Week 5 (Sensitivity & UQ)
+- SciMLSensitivity.jl
+  - Read: Forward vs Adjoint Sensitivity; local/global sensitivity overview.
+  - Do: Sensitivities for Lotka–Volterra; rank parameters; visualize tornado/violin plots.
+  - Checkpoint: You can choose an appropriate sensitivity method for a given state size/params.
+- DiffEqUncertainty.jl
+  - Read: Ensemble problems, uncertain parameters.
+  - Do: Define parameter distributions; run ensemble; compute predictive intervals.
+  - Checkpoint: You can report 90% credible bands over time.
+- JuliaCon talks (Sensitivity/UQ)
+  - Watch: 1–2 talks; take notes on workflow patterns.
+  - Checkpoint: You can articulate when global sensitivity is preferred to local.
+
+*** Week 6 (Stochastic & PDE)
+- JumpProcesses.jl
+  - Read: JumpProcess tutorials; Gillespie algorithms.
+  - Do: Birth–death process; vary rates; compare trajectories; compute extinction probability.
+  - Checkpoint: You can switch between SSA and tau-leaping methods.
+- DiffEqOperators.jl + PDE Tutorials
+  - Read: Finite difference operators; boundary conditions; PDE examples.
+  - Do: 1D heat equation; test Dirichlet vs Neumann BCs; study stability via Δt, Δx.
+  - Checkpoint: You can derive and implement a semi-discretized PDE ODE system.
+- SDEs (in DiffEq)
+  - Read: SDEProblem; noise processes.
+  - Do: Stochastic logistic growth; compare to ODE mean behavior.
+  - Checkpoint: You can interpret ensemble variance vs drift/diffusion terms.
+
+*** Week 7 (Scientific ML)
+- DiffEqFlux.jl + SciML Overview (UDEs)
+  - Read: UDE tutorials.
+  - Do: Train a small NN inside an ODE; monitor loss vs epochs; early stopping.
+  - Checkpoint: You can prevent overfitting with validation trajectories.
+- JuliaAcademy: Scientific Machine Learning
+  - Watch/Do: First 3–4 modules.
+  - Checkpoint: You can wire up AD (Zygote) choices and explain stiffness issues for training.
+- Chris Rackauckas Lectures
+  - Watch: A lecture on UDEs or adjoints; take notes on algorithmic trade-offs.
+  - Checkpoint: You can pick an adjoint method appropriate to your model size.
+
+*** Week 8 (Workflow & Reproducibility)
+- DrWatson.jl
+  - Read: Project structure, naming, `@dict` saving helpers.
+  - Do: Create a `src`, `scripts`, `data`, `plots` layout; log all parameters for a run.
+  - Checkpoint: You can rerun an experiment from clean state and reproduce outputs.
+- PkgTemplates.jl + Package Development Guide
+  - Read: Quickstart; project.toml/Manifest.toml best practices; testing.
+  - Do: Generate a template; add CI badge; write a minimal test with `Test.jl`.
+  - Checkpoint: You can tag a release and `]dev` your own package locally.
+- Julia Data Science (Projects/Reproducibility)
+  - Read: Project chapter.
+  - Do: Add a README with instructions; export plots and tables to a `reports/` folder.
+  - Checkpoint: Another person can run your repo and reproduce figures.
+
+** Weekly Timeboxing Template (repeat each week)
+1) 60–90 min reading (primary doc + complementary text)
+2) 90–120 min guided exercises (from docs/tutorials)
+3) 120–150 min project work (your weekly mini-project)
+4) 15–30 min reflection & notes (what worked, blockers, next steps)
