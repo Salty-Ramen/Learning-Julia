@@ -1,4 +1,4 @@
-
+#+STARTUP:overview
 * Julia Scientific Coding Roadmap (8 Weeks, with Resources)
 This roadmap is designed for researchers with prior experience in Python/R. 
 Time estimates assume ~6–8 hours per week of study and practice.
