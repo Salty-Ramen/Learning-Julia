@@ -35,7 +35,11 @@ function generate_data(;
         (Float32.(t_span[1]), Float32.(t_span[2])),
         ptrue
     )
-    sol = solve(prob, Tsit5(); saveat = t)
+    sol = DifferentialEquations.solve(
+        prob,
+        DifferentialEquations.Tsit5();
+        saveat = t
+    )
     Yclean = Float32.(Array(sol)) # 3xN
 
     # Adding noise to the clean data
@@ -43,7 +47,7 @@ function generate_data(;
     noise_vec = [Float32.(noise_pct)...]
     noise = reshape(noise_vec, :, 1) .* Yclean .* randn(rng, size(Yclean)...)
     Y = clamp.(Yclean .+ noise, 0f0, Inf)
-    Ystd = vec(std(Y; dims = 2))
+    Ystd = vec(Statistics.std(Y; dims = 2))
     
     Ystd = max.(Ystd, 1f-6)
 
