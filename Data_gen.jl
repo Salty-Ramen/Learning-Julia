@@ -85,6 +85,48 @@ function save_dataset(path; format::Symbol=:csv, kwargs...)
 
 end
 
+#--------Visualizing Generated Dataset--------
+
+function plot_dataset(data;
+                      layout=(3,1), ms=3, lw=2, legend=:topright, title="SIR: noisy vs true")
+    t      = data.t
+    Y      = data.Y        # noisy: 3 x T
+    Yclean = data.Yclean   # true:  3 x T
+
+    plt = Plots.plot(layout=layout, legend=legend, size=(900, 800), title=title)
+
+    # Keep consistent colors across scatter+line for each state
+    labels = ("S", "I", "R")
+    for (i, lbl) in enumerate(labels)
+        Plots.scatter!(
+            plt[i],
+            t, vec(Y[i, :]); label="$lbl (noisy)", ms=ms,
+            xlabel=i == 3 ? "t" : "", ylabel=lbl
+        )
+        Plots.plot!(
+            plt[i],
+            t, vec(Yclean[i, :]); label="$lbl (true)", lw=lw
+        )
+       # Plots.grid!(plt[i], true)
+    end
+    return plt
+end
+
+function plot_dataset_from_csv(basepath; kwargs...)
+    path = endswith(basepath, ".csv") ? basepath : "$(basepath).csv"
+    @assert isfile(path) "Could not find CSV at: $path"
+
+    df = CSV.read(path, DataFrame)
+
+    # Rebuild the minimal `data` NamedTuple shape used by plot_dataset
+    t      = Float32.(df.t)
+    Y      = permutedims(Float32.(hcat(df.S, df.I, df.R)))      # 3 x T
+    Yclean = permutedims(Float32.(hcat(df.S_clean, df.I_clean, df.R_clean)))  # 3 x T
+
+    data = (; t=t, Y=Y, Yclean=Yclean)
+
+    return plot_dataset(data; kwargs...)
+end
 
 # --- Uncomment to quickly produce a dataset file ---
 
