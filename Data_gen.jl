@@ -26,7 +26,7 @@ function generate_data(;
                        n = 101,
                        u0 = (0.999f0, 0.001f0, 0.02f0),
                        ptrue = SIR_params(0.3f0, 0.1f0),
-                       noise_pct = (0.02f0, 0.05f0, 0.02f0))
+                       noise_pct = (0.2f0, 0.2f0, 0.2f0))
 
     rng = Random.MersenneTwister(seed)
     t = Float32.(collect(range(t_span[1], t_span[2], length=n)))
