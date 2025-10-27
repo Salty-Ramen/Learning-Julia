@@ -164,3 +164,49 @@ res2 = Optimization.solve(
     maxiters=5_000
 )
 ps_trained = res2.u
+
+
+#--------Plots--------
+
+
+
+# Build a stateful model bound to the trained params
+smodel = Lux.StatefulLuxLayer(State_MLP, ps_trained.StateMLP, st_StateMLP)
+#gmodel = Lux.StatefulLuxLayer(g_MLP, ps_trained.gMLP, st_gMLP)
+
+# A smooth time grid for plotting the NN curve
+t_plot = Float32.(collect(range(t_train[1], t_train[end], length=400)))
+
+# NN predictions on the smooth grid (3×N)
+ŷ_plot = smodel(permutedims(t_plot))  # 1×N input expected; returns 3×N
+
+# Split true, NN, and noisy series
+S_nn,   I_nn,   R_nn   = vec(ŷ_plot[1, :]), vec(ŷ_plot[2, :]), vec(ŷ_plot[3, :])
+S_noisy, I_noisy, R_noisy = Y_train[1, :], Y_train[2, :], Y_train[3, :]
+
+# Panel 1: S(t)
+p1 = Plots.plot(t_plot, S_nn; label = "NN S(t)", linewidth = 2)
+#Plots.plot!(p1, t_obs_array, S_true; label = "ODE S(t)", linestyle = :dash, linewidth = 2)
+Plots.scatter!(p1, t_train, S_noisy; label = "data S", ms = 3, alpha = 0.7)
+Plots.xlabel!(p1, "t")
+Plots.ylabel!(p1, "S(t)")
+
+# Panel 2: I(t)
+p2 = Plots.plot(t_plot, I_nn; label = "NN I(t)", linewidth = 2)
+# Plots.plot!(p2, t_obs_array, I_true; label = "ODE I(t)", linestyle = :dash, linewidth = 2)
+Plots.scatter!(p2, t_train, I_noisy; label = "data I", ms = 3, alpha = 0.7)
+Plots.xlabel!(p2, "t")
+Plots.ylabel!(p2, "I(t)")
+
+# Panel 3: R(t)
+p3 = Plots.plot(t_plot, R_nn; label = "NN R(t)", linewidth = 2)
+# Plots.plot!(p3, t_obs_array, R_true; label = "ODE R(t)", linestyle = :dash, linewidth = 2)
+Plots.scatter!(p3, t_train, R_noisy; label = "data R", ms = 3, alpha = 0.7)
+Plots.xlabel!(p3, "t")
+Plots.ylabel!(p3, "R(t)")
+
+# Combine panels
+plt = Plots.plot(p1, p2, p3; layout = (3, 1), size = (600, 900))
+display(plt)
+
+#Plots.savefig(plt, "Results/2025-10-13_NNfitWithODELoss.svg")
