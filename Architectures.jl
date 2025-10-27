@@ -10,18 +10,17 @@ struct SIR_params{T<:AbstractFloat}
 end
 
 # y: 3×B (rows = S,I,R; columns = batch/time 
-#=
+
 function SIR_model(y::AbstractMatrix{<:Real}, p::SIR_params)
     @assert size(y, 1) == 3 "SIR_model expects y to be 3×B (rows=S,I,R)."
-    @views begin
-        S = y[1, :]; I = y[2, :]
-        dS = -p.β .* S .* I
-        dI =  p.β .* S .* I .- p.γ .* I
-        dR =  p.γ .* I
-    end
+    
+    S = y[1, :]; I = y[2, :]
+    dS = -p.β .* S .* I
+    dI =  p.β .* S .* I .- p.γ .* I
+    dR =  p.γ .* I
+ 
     return permutedims(hcat(dS, dI, dR))  # 3×B
 end
-=#
 
 # Grey-box: supply g and an architecture that maps (y,g,p) -> 3×B RHS
 function SIR_model(y::AbstractMatrix{<:Real}, p::SIR_params,
