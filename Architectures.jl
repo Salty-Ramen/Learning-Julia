@@ -58,15 +58,14 @@ using Logging
 function default_architecture(y::AbstractMatrix{<:Real}, g::AbstractMatrix{<:Real}, p::SIR_params)
     # Sanity Checks
     @assert size(g, 1) == 1 "g must be 1xB"
-    @warn size(g,2) > 1 "g has more states than needed, using only the first"
 
-    @views begin
-        I = y[2,:]
-        
-        dS = - g[1,:]
-        dI = g[1,:] - p.γ .* I
-        dR = p.γ .* I
-    end
+   # @views begin
+    I = y[2,:]
+    
+    dS = - g[1,:]
+    dI = g[1,:] - p.γ .* I
+    dR = p.γ .* I
+    #end
     
     return permutedims(hcat(dS, dI, dR))
 end
