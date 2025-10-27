@@ -23,18 +23,15 @@ function SIR_model(y::AbstractMatrix{<:Real}, p::SIR_params)
 end
 
 # Grey-box: supply g and an architecture that maps (y,g,p) -> 3×B RHS
-function SIR_model(y::AbstractMatrix{<:Real}, p::SIR_params,
-                   g::Union{AbstractVecOrMat{<:Real}, Nothing},
-                   architecture::Function)
-    isnothing(g) && error("Provide g or call the 2-arg SIR_model(y,p).")
+function SIR_model(y::AbstractVecOrMat{<:Real}, p::SIR_params;g::Union{Nothing,AbstractVecOrMat{<:Real}}=nothing, architecture::Function=default_architecture)
 
     # Needs a 3xB input
     # We use the @assert macro as a sanity check.
     # This just ensures the expected dimensions while proceeding
-    @assert size(y, 1) == 3
 
-    # Force g to 1×B for consistent algebra
-    # g_row = size(g, 1) == 1 ? g : reshape(vec(g), 1, :)
+    @assert size(y, 1) == 3
+    
+    isnothing(g) && return SIR_model(y, p)
 
     @assert size(g, 2) == size(y, 2) "g must have one value per column of y."
 
